@@ -1,0 +1,5 @@
+@tailwind components;/*remove the base for default transparent behaviour*/
+@tailwind utilities;
+
+body{
+margin:0;}
