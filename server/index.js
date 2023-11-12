@@ -1,7 +1,35 @@
 const express = require('express');
+const mongoose = require("mongoose");
 const http = require('http');
+const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
+const roomRouter = require("./routes/roomRoutes");
+require("dotenv").config();
+
+app.use(express.json());
+
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
+);
+
+const connectWithRetry = () => {
+  mongoose
+    .connect(process.env.MONGODB_URI)
+    .then(() => console.log("successfully connected to the database"))
+    .catch((err) => {
+      console.log(err);
+      // retry to connect after 5 seconds if connection fails
+      setTimeout(connectWithRetry, 5000);
+    });
+};
+// Connect to the MongoDB database
+connectWithRetry();
+
+app.use("/rooms", roomRouter);
 
 const { Server } = require('socket.io');
 const io = new Server(server, {
@@ -11,20 +39,36 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-  socket.on('client-ready', () => {
-    socket.broadcast.emit('get-canvas-state');
+  socket.on('join-room', (roomId) => {
+    // Join the socket to the specified room
+    socket.join(roomId);
   });
 
-  socket.on('canvas-state', (state) => {
+  socket.on('leave-room', (roomId) => {
+    // Leave the socket from the specified room
+    socket.leave(roomId);
+  });
+
+  socket.on('client-ready', (roomId) => {
+    // Broadcast to clients in the same room
+    io.to(roomId).emit('get-canvas-state');
+  });
+
+  socket.on('canvas-state', ({ roomId, state }) => {
     console.log('received canvas state');
-    socket.broadcast.emit('canvas-state-from-server', state);
+    // Broadcast to clients in the same room
+    io.to(roomId).emit('canvas-state-from-server', { room: roomId, state });
   });
 
-  socket.on('draw-line', ({ prevPoint, currentPoint, color }) => {
-    socket.broadcast.emit('draw-line', { prevPoint, currentPoint, color });
+  socket.on('draw-line', ({ room, prevPoint, currentPoint, color }) => {
+    // Broadcast to clients in the same room
+    io.to(room).emit('draw-line', { room, prevPoint, currentPoint, color });
   });
 
-  socket.on('clear', () => io.emit('clear'));
+  socket.on('clear', ({ room }) => {
+    // Broadcast to clients in the same room
+    io.to(room).emit('clear');
+  });
 });
 
 server.listen(3001, () => {
