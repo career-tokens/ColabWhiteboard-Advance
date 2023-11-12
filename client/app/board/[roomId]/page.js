@@ -30,8 +30,6 @@ const Page = ({ params }) => {
         console.log(response.status)
         if (response.status === 200) {
           setIsValid("true");
-          // Join the room on the server
-          socket.emit('join-room', roomId);
         } else {
           setIsValid("false");
         }
@@ -45,8 +43,10 @@ const Page = ({ params }) => {
 
   useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d');
+    socket.emit('join-room', roomId);//keeping it in the initial useEffect made it execute later(due to the fetch process) than this useEffect , the hell can you recieve state emitted from one room if you havent yet joined the room?
 
     socket.emit('client-ready', roomId);
+    console.log("emitted client ready ",roomId);
 
     socket.on('get-canvas-state', () => {
       if (!canvasRef.current?.toDataURL()) return;
@@ -56,7 +56,7 @@ const Page = ({ params }) => {
 
     socket.on('canvas-state-from-server', ({ room, state }) => {
       if (room === roomId) {
-        console.log('I received the state');
+        console.log('I received the state which is ',state);
         const img = new Image();
         img.src = state;
         img.onload = () => {
@@ -71,7 +71,8 @@ const Page = ({ params }) => {
       }
     });
 
-    socket.on('clear', ({room}) => {
+    socket.on('clear', ({ room }) => {
+      console.log("got the note to clear")
       if (room === roomId) {
         clear();
       }
@@ -85,7 +86,7 @@ const Page = ({ params }) => {
       // Leave the room on disconnection
       socket.emit('leave-room', roomId);
     };
-  }, [socket]);
+  }, [socket,canvasRef,isValid]);//this works even if the dependency array is null or contains canvasRef ,why?
 
   function createLine({ prevPoint, currentPoint, ctx }) {
     socket.emit('draw-line', { room: roomId, prevPoint, currentPoint, color });
@@ -106,7 +107,9 @@ const Page = ({ params }) => {
             <button
               type='button'
               className='p-2 rounded-md border border-black'
-              onClick={() => socket.emit('clear', { room: roomId })}>
+              onClick={() => {
+                socket.emit('clear', { room: roomId })
+              }}>
               Clear canvas
             </button>
             <div className="share">

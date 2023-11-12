@@ -67,7 +67,7 @@ io.on('connection', (socket) => {
 
   socket.on('clear', ({ room }) => {
     // Broadcast to clients in the same room
-    io.to(room).emit('clear');
+    io.to(room).emit('clear',{room});
   });
 });
 

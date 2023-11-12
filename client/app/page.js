@@ -67,7 +67,7 @@ const Home = () => {
                   <ColorButton variant="contained" sx={{backgroundColor: "#3C41C2",boxShadow:" 4px 4px 1px 0px rgba(255,255,66,1)"}}>Login</ColorButton>
               </div>
           </div>
-          <div className={`first flex ${mid||small?"flex-col-reverse jusitfy-center items-center text-center":""}`}>
+          <div className={`first flex ${mid||small?"flex-col-reverse jusitfy-center items-center text-center":""}`} style={{paddingBottom:"8vh"}}>
           <div className="first1 flex flex-col" style={{gap:"6vh",padding:"0vh 8vw",width:small?"":"50vw"}}>
           <div className="describer text-cyan-400" style={{ fontSize: "8vh" }}>
           <style>
@@ -122,7 +122,8 @@ const Home = () => {
                      style={{ width: small?"80vw":"48vw", height: small?"35vh":"58vh" ,borderRadius:"20px" }} />
               </div>
       </div>
-      <div className="second flex  flex-wrap justify-center items-center gap-x-4 gap-y-4" style={{padding:"5vh 5vw"}}>
+      <div className="second-topic text-center text-white " style={{fontSize:"7vh",padding:"7vh 0vw"}}>Online Mulitplayer Whiteboard</div>
+      <div className="second flex  flex-wrap justify-center items-center gap-x-4 gap-y-4" style={{padding:"0 5vw 5vh 5vw"}}>
         <Card p={"Changes you make are broadcasted to other participants immediately."} span={"Realtime"} Icon={SyncIcon} />
         <Card p={"No need to take photo of whiteboard anymore! Create as many boards as you need."} span={"Save Your Work"} Icon={SaveAsIcon} />
         <Card p={"Share with anyone! Invite your team mates or friends to your boards to share ideas."} span={"Sharing"} Icon={ShareIcon} />
@@ -138,7 +139,7 @@ export default Home
 
 const Card = ({span,p,Icon}) => {
   return (
-    <div className="card flex flex-col justify-center items-center text-center text-black bg-white p-4" style={{width:"25vw",fontSize:"3vh",height:"150px"}}>
+    <div className="card flex flex-col justify-center items-center text-center text-black bg-white p-4 rounded-lg" style={{width:"25vw",fontSize:"3vh",height:"150px"}}>
     <Icon sx={{ color: "purple", fontSize: "8vh", fontWeight: "900" }} />
     <span style={{fontSize:"4vh",padding:"0.5vh 0"}}>{span}</span>
     <p style={{marginBlockStart:"0",marginBlockEnd:"0"}}>
