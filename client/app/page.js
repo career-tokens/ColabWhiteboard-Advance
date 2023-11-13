@@ -63,9 +63,9 @@ const Home = () => {
               <div className="image">
                   <Image src={logo1} alt="" style={{  width:"250px",height: "150px",borderRadius:200 }} />
               </div>
-              <div className="login-button">
+              {/* <div className="login-button">
                   <ColorButton variant="contained" sx={{backgroundColor: "#3C41C2",boxShadow:" 4px 4px 1px 0px rgba(255,255,66,1)"}}>Login</ColorButton>
-              </div>
+              </div> */}
           </div>
           <div className={`first flex ${mid||small?"flex-col-reverse jusitfy-center items-center text-center":""}`} style={{paddingBottom:"8vh"}}>
           <div className="first1 flex flex-col" style={{gap:"6vh",padding:"0vh 8vw",width:small?"":"50vw"}}>
@@ -139,7 +139,7 @@ export default Home
 
 const Card = ({span,p,Icon}) => {
   return (
-    <div className="card flex flex-col justify-center items-center text-center text-black bg-white p-4 rounded-lg" style={{width:"25vw",fontSize:"3vh",height:"150px"}}>
+    <div className="card flex flex-col justify-center items-center text-center text-black bg-white p-4 rounded-lg" style={{minWidth:"250px",width:"25vw",fontSize:"3vh",height:"250px"}}>
     <Icon sx={{ color: "purple", fontSize: "8vh", fontWeight: "900" }} />
     <span style={{fontSize:"4vh",padding:"0.5vh 0"}}>{span}</span>
     <p style={{marginBlockStart:"0",marginBlockEnd:"0"}}>
