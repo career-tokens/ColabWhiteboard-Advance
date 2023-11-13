@@ -42,7 +42,7 @@ const Home = () => {
         const roomId = uuid();
       
         try {
-          const response = await fetch(`http://localhost:3001/rooms/${roomId}`, {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/rooms/${roomId}`, {
             method: 'POST', // Change the method to 'POST'
           });
       

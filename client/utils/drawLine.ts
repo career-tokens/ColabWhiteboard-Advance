@@ -6,7 +6,10 @@ export const drawLine = ({ prevPoint, currentPoint, ctx, color }: DrawLineProps)
   const { x: currX, y: currY } = currentPoint
   const lineColor = color
   const lineWidth = 5
-
+  
+  // ctx.fillStyle = "white";
+  // ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+  
   let startPoint = prevPoint ?? currentPoint
   ctx.beginPath()
   ctx.lineWidth = lineWidth
