@@ -15,6 +15,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import PublicIcon from '@mui/icons-material/Public';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import { useStytch, useStytchUser } from "@stytch/nextjs";
+import Login from "../components/Login";
 //#635DFF
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText("#3C41C2"),
@@ -32,10 +34,12 @@ const ColorButton2 = styled(Button)(({ theme }) => ({
 }));
   
 const Home = () => {
-    const router = useRouter();
-    const mid = useMediaQuery("(max-width:1000px)");
+  const { user, isInitialized } = useStytchUser();
+  const router = useRouter();
+  const mid = useMediaQuery("(max-width:1000px)");
   const small = useMediaQuery("(max-width:600px)");
   const [joinRoom, setJoinRoom] = useState("");
+  const stytch = useStytch();
    
 
     const handleCreateRoom = async () => {
@@ -57,18 +61,32 @@ const Home = () => {
         }
       };
 
+  if(user&&isInitialized)
   return (
       <div className="home  bg-black" style={{minHeight:"100vh"}}>
           <div className="navbar flex justify-between pl-3 pr-10 items-center">
               <div className="image">
                   <Image src={logo1} alt="" style={{  width:"250px",height: "150px",borderRadius:200 }} />
               </div>
-              {/* <div className="login-button">
-                  <ColorButton variant="contained" sx={{backgroundColor: "#3C41C2",boxShadow:" 4px 4px 1px 0px rgba(255,255,66,1)"}}>Login</ColorButton>
-              </div> */}
+              <div className="logout-button">
+          <ColorButton variant="contained" sx={{ backgroundColor: "#3C41C2", boxShadow: " 4px 4px 1px 0px rgba(255,255,66,1)" }}
+            onClick={() => stytch.session.revoke()}>Logout</ColorButton>
+              </div>
           </div>
-          <div className={`first flex ${mid||small?"flex-col-reverse jusitfy-center items-center text-center":""}`} style={{paddingBottom:"8vh"}}>
-          <div className="first1 flex flex-col" style={{gap:"6vh",padding:"0vh 8vw",width:small?"":"50vw"}}>
+          <div className="first flex" style={{paddingBottom:"8vh"}}>
+          <style>
+          {`
+           @media(max-width:1000px){
+           .first{
+            flex-direction:column-reverse;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+               }
+              }
+          `}
+          </style>  
+        <div className="first1 flex flex-col" style={{ gap: "6vh", padding: "0vh 8vw", width: small ? "" : "50vw" }}>
           <div className="describer text-cyan-400" style={{ fontSize: "8vh" }}>
           <style>
            {`
@@ -132,7 +150,9 @@ const Home = () => {
         <Card p={"We continuously add new features."} span={"What's Next"} Icon={QuestionMarkIcon}/>
       </div>
     </div>
-  )
+    )
+  else
+    return <Login/>
 }
 
 export default Home
