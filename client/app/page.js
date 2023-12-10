@@ -73,17 +73,23 @@ const Home = () => {
             onClick={() => stytch.session.revoke()}>Logout</ColorButton>
               </div>
           </div>
-          <div className="first flex" style={{paddingBottom:"8vh"}}>
+          <div className="first flex justify-center " style={{paddingBottom:"8vh"}}>
           <style>
           {`
            @media(max-width:1000px){
            .first{
             flex-direction:column-reverse;
-            justify-content:center;
             align-items:center;
+            justify-content:center;
             text-align:center;
                }
               }
+              @media(min-width:1001px){
+                .first{
+                 flex-direction:row;
+                    }
+                   }
+
           `}
           </style>  
         <div className="first1 flex flex-col" style={{ gap: "6vh", padding: "0vh 8vw", width: small ? "" : "50vw" }}>
@@ -125,10 +131,10 @@ const Home = () => {
           </style>
                       Or
                   </div>
-                  <div className={`join flex gap-5 ${mid||small?"justify-center":""}`}>
+                  <div className={`join flex gap-5 ${mid||small?"justify-center":"justify-start"}`}>
             <input
                onChange={(e)=>setJoinRoom(e.target.value)}
-              style={{ borderRadius: "5px", fontSize: "17px", width: "200px", height: "30px", backgroundColor: "white", color: "black", outline: "none", padding: "10px" }} placeholder="Enter room code to join" />
+              style={{ borderRadius: "5px", fontSize: "17px", width: "200px", height: "30px", backgroundColor: "white", color: "black", outline: "none", padding: "20px 10px" }} placeholder="Enter room code to join" />
             <ColorButton variant="contained" sx={{ padding: "0 20px", backgroundColor: "#3C41C2", boxShadow: " 4px 4px 1px 0px rgba(255,255,66,1)" }}
               onClick={(e) => {
               router.push(`/board/${joinRoom}`)

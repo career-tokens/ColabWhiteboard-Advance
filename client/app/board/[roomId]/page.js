@@ -18,7 +18,7 @@ const Page = ({ params }) => {
   const roomId = params.roomId;
   const [isValid, setIsValid] = useState("true");
   const [color, setColor] = useState('#000');
-  const { canvasRef, onMouseDown, clear } = useDraw(createLine);
+  const { canvasRef, onMouseOrTouchDown, clear } = useDraw(createLine);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -169,7 +169,8 @@ const Page = ({ params }) => {
           <canvas //canvas height is set in the useEffect since directly using styling it breaks
             id="myCanvas"
             ref={canvasRef}
-            onMouseDown={onMouseDown}
+            onMouseDown={onMouseOrTouchDown}
+            onTouchStart={onMouseOrTouchDown}
             className='border border-black rounded-md'
           />
         </div>

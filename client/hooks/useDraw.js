@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
 export const useDraw = (onDraw) => {
-  const [mouseDown, setMouseDown] = useState(false);
+  const [mouseOrTouchDown, setMouseOrTouchDown] = useState(false);
 
   const canvasRef = useRef(null);
   const prevPoint = useRef(null);
 
-  const onMouseDown = () => setMouseDown(true);
+  const onMouseOrTouchDown = () => setMouseOrTouchDown(true);
 
   const clear = () => {
     const canvas = canvasRef.current;
@@ -20,7 +20,8 @@ export const useDraw = (onDraw) => {
 
   useEffect(() => {
     const handler = (e) => {
-      if (!mouseDown) return;
+      e.preventDefault();
+      if (!mouseOrTouchDown) return;
       const currentPoint = computePointInCanvas(e);
 
       const ctx = canvasRef.current?.getContext('2d');
@@ -35,27 +36,29 @@ export const useDraw = (onDraw) => {
       if (!canvas) return;
 
       const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const x = e.clientX?e.clientX - rect.left:e.touches[0].clientX-rect.left;
+      const y = e.clientY?e.clientY - rect.top:e.touches[0].clientY-rect.left;
 
       return { x, y };
     };
 
-    const mouseUpHandler = () => {
-      setMouseDown(false);
+    const upHandler = () => {
+      setMouseOrTouchDown(false);
       prevPoint.current = null;
     };
 
     // Add event listeners
     canvasRef.current?.addEventListener('mousemove', handler);
-    window.addEventListener('mouseup', mouseUpHandler);
+    canvasRef.current?.addEventListener('touchmove', handler);
+    window.addEventListener('mouseup', upHandler);
+    window.addEventListener('touchup', upHandler);
 
     // Remove event listeners
     return () => {
       canvasRef.current?.removeEventListener('mousemove', handler);
-      window.removeEventListener('mouseup', mouseUpHandler);
+      window.removeEventListener('touchup', upHandler);
     };
   }, [onDraw]);
 
-  return { canvasRef, onMouseDown, clear };
+  return { canvasRef, onMouseOrTouchDown, clear };
 };
