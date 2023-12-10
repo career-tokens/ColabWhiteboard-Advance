@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
 export const useDraw = (onDraw) => {
-  const [mouseOrTouchDown, setMouseOrTouchDown] = useState(false);
+  const [pointerDown, setPointerDown] = useState(false);
 
   const canvasRef = useRef(null);
   const prevPoint = useRef(null);
 
-  const onMouseOrTouchDown = () => setMouseOrTouchDown(true);
+  const onPointerDown = () => setPointerDown(true);
 
   const clear = () => {
     const canvas = canvasRef.current;
@@ -21,7 +21,7 @@ export const useDraw = (onDraw) => {
   useEffect(() => {
     const handler = (e) => {
       e.preventDefault();
-      if (!mouseOrTouchDown) return;
+      if (!pointerDown) return;
       const currentPoint = computePointInCanvas(e);
 
       const ctx = canvasRef.current?.getContext('2d');
@@ -43,22 +43,20 @@ export const useDraw = (onDraw) => {
     };
 
     const upHandler = () => {
-      setMouseOrTouchDown(false);
+      setPointerDown(false);
       prevPoint.current = null;
     };
 
     // Add event listeners
-    canvasRef.current?.addEventListener('mousemove', handler);
-    canvasRef.current?.addEventListener('touchmove', handler);
-    window.addEventListener('mouseup', upHandler);
-    window.addEventListener('touchup', upHandler);
+    canvasRef.current?.addEventListener('pointermove', handler);
+    window.addEventListener('pointerup', upHandler);
 
     // Remove event listeners
     return () => {
-      canvasRef.current?.removeEventListener('mousemove', handler);
-      window.removeEventListener('touchup', upHandler);
+      canvasRef.current?.removeEventListener('pointermove', handler);
+      window.removeEventListener('pointerup', upHandler);
     };
   }, [onDraw]);
 
-  return { canvasRef, onMouseOrTouchDown, clear };
+  return { canvasRef, onPointerDown, clear };
 };
