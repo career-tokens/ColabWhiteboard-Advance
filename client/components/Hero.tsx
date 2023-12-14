@@ -60,7 +60,7 @@ const Hero = () => {
         Purpose built platform to help people convey ideas in high quality visual format
         </div>
         <div className="join-new-or-old flex flex-col sm:flex-row gap-[5vw] justify-center">
-        <div className="btn" >
+        <div className="btn mb-[2vh] sm:mb-0" >
                   <ColorButton2
                       variant="contained"
                       sx={{ backgroundColor: "#dc3545", boxShadow: " 4px 4px 1px 0px rgba(255,255,255,1)" }}
@@ -71,7 +71,7 @@ const Hero = () => {
             <div className={`join flex gap-5 justify-center`}>
       <input
          onChange={(e)=>setJoinRoom(e.target.value)}
-         className="rounded text-[17px] w-[200px] h-[30px] bg-[white] text-white outline-none px-[10px] py-5 bg-opacity-10 border-none"
+         className="rounded text-[17px] w-[200px] h-[30px] bg-[white] text-white outline-none px-[10px] py-2  bg-opacity-10 border-none"
          placeholder="Enter room code to join"
         />
                   
@@ -85,7 +85,7 @@ const Hero = () => {
               
           </motion.div>
           
-      <div className="first2 mt-[10vh] relative flex justify-center">
+      <div className="first2 mt-[5vh] sm:mt-[10vh] relative flex justify-center">
         <img
           className='absolute z-0 m-auto top-[-70vh] w-[80vw] left-[15vw]'
           src="https://redbrickai.com/images/bg-mesh.svg" alt="" />

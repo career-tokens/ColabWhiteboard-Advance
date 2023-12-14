@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 
 const MarqueeComponent = () => {
   return (
-    <motion.div className="marquee"
+    <motion.div className="marquee mb-[8vh]"
     initial={{ marginTop: "100px",opacity:0 }}
     variants={{
       animate: {
@@ -26,7 +26,7 @@ const MarqueeComponent = () => {
     }}
         whileInView="animate"
         viewport={{once:true}}>
-      <p className="text-[32px] sm:text-[7vh] text-center text-white mb-[5vh] font-bold"
+      <p className="text-[32px] sm:text-[7vh] text-center text-white mb-[5vh] font-bold px-2"
           style={{background:"linear-gradient(106.9deg,#943985 20.44%,#490f84 133.1%)","-webkit-background-clip": "text",
           "-webkit-text-fill-color": "transparent"}}
       >Used by Leading Companies </p>

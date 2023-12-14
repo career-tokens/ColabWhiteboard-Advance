@@ -1,5 +1,4 @@
 "use client";
-import "./stytch.css"
 import React from "react";
 import { StytchLogin } from "@stytch/nextjs";
 import { Products } from "@stytch/vanilla-js";
