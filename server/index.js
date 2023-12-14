@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
 const roomRouter = require("./routes/roomRoutes");
+const userRouter = require("./routes/userRoutes");
 require("dotenv").config();
 
 app.use(express.json());
@@ -31,6 +32,7 @@ const connectWithRetry = () => {
 connectWithRetry();
 
 app.use("/rooms", roomRouter);
+app.use("/api", userRouter);
 
 const { Server } = require('socket.io');
 const io = new Server(server, {
