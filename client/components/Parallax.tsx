@@ -18,7 +18,7 @@ const Parallax = () => {
       >
         <div className="absolute bottom-[12px] w-fit     left-0 right-0 ml-auto mr-auto    text-[24px] sm:text-[35px] backdrop-blur-md backdrop-saturate-150 bg-white bg-opacity-[0.6] px-3 py-2 rounded font-[Montserrat] font-bold uppercase">
           <span style={{background:"linear-gradient(106.9deg,#943985 20.44%,#490f84 133.1%)","-webkit-background-clip": "text",
-          "-webkit-text-fill-color": "transparent"}}>Don't let your creativity die!</span>
+          "-webkit-text-fill-color": "transparent"}}>Don&apos;t let your creativity die!</span>
         </div>
       </div>
             <div
@@ -33,7 +33,7 @@ const Parallax = () => {
       >
         <div className="absolute bottom-[12px] w-fit     left-0 right-0 ml-auto mr-auto    text-[24px] sm:text-[35px] backdrop-blur-md backdrop-saturate-150 bg-white bg-opacity-[0.6] px-3 py-2 rounded font-[Montserrat] font-bold uppercase">
           <span style={{background:"linear-gradient(106.9deg,#943985 20.44%,#490f84 133.1%)","-webkit-background-clip": "text",
-          "-webkit-text-fill-color": "transparent"}}>Don't let the light of education die !</span>
+          "-webkit-text-fill-color": "transparent"}}>Don&apos;t let the light of education die !</span>
         </div>
       </div>
     </div>
