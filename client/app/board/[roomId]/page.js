@@ -1,5 +1,6 @@
 "use client"
 import Error from 'next/error'
+import Sidebar from "../../../components/Sidebar"
 import { useEffect, useState } from "react";
 import { useDraw } from '../../../hooks/useDraw';
 import { ChromePicker } from 'react-color';
@@ -70,7 +71,7 @@ const Page = ({ params }) => {
         return;
       }
       console.log('sending canvas state');
-      console.log(canvasRef.current.toDataURL().length);
+      // console.log(canvasRef.current.toDataURL().length);
       socket.emit('canvas-state', { roomId, state: canvasRef.current.toDataURL() });
     });
 
@@ -127,15 +128,7 @@ const Page = ({ params }) => {
     <div>
       {isValid === "true" ? (
         <div className='w-screen h-screen bg-white flex justify-center items-center'>
-          <Button variant="contained" sx={{position:"absolute",left:"2%",top:"5%"}} onClick={()=>{setOpen(true)}}>Options</Button>
-          <Drawer placement="left" open={open} onClose={() => setOpen(false)}>
-          <style>
-           {`
-           .rs-drawer-left.rs-drawer-sm {
-            width:fit-content;
-               }
-          `}
-          </style>
+        <Sidebar>
         <div className='flex flex-col gap-10 items-center justify-center bg-black' style={{width:"280px",height:"100vh",position:"absolute",left:"0"}}>
             <div className="colorpickerwithtitle">
               <p style={{color:"cyan"}}>Choose Color:</p>
@@ -163,9 +156,9 @@ const Page = ({ params }) => {
               </div>
               </div>
               <Button variant="contained" color="success" onClick={handleSaveImage}>Save Image</Button>
-          </div>
+            </div>
+            </Sidebar>
         
-          </Drawer>
           <canvas //canvas height is set in the useEffect since directly using styling it breaks
             id="myCanvas"
             ref={canvasRef}
