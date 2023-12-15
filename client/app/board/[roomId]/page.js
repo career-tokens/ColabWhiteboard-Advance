@@ -51,6 +51,7 @@ const Page = ({ params }) => {
     console.log("emitted client ready ",roomId);
 
     socket.on('get-canvas-state', () => {
+      // console.log(canvasRef.current?.toDataURL().length)
       if (canvasRef.current?.toDataURL().length < 10)//practically no drawing(its just data:(and nothing ofc)) 
       {
         console.log("filling")
@@ -131,7 +132,7 @@ const Page = ({ params }) => {
         <Sidebar>
         <div className='flex flex-col gap-10 items-center justify-center bg-black' style={{width:"280px",height:"100vh",position:"absolute",left:"0"}}>
             <div className="colorpickerwithtitle">
-              <p style={{color:"cyan"}}>Choose Color:</p>
+              <p className="text-cyan-400 text-[18px] p-2 uppercase">Choose Color:</p>
               <div className="color-picker" style={{border:"1px solid green"}}>
             <ChromePicker color={color} onChange={(e) => setColor(e.hex)} />
             </div>
@@ -142,10 +143,10 @@ const Page = ({ params }) => {
               onClick={() => {
                 socket.emit('clear', { room: roomId })
               }}>
-              Clear canvas
+              CLEAR CANVAS
             </button>
             <div className="share" style={{width:"250px"}}>
-              <p style={{ color: "cyan" }}>Share Room Code:</p>
+              <p className="text-cyan-400 text-[18px] p-2 uppercase">Share Room Code:</p>
               <div className="copy-code flex ">
               <div className="value bg-white p-2" >
                 {roomId}
