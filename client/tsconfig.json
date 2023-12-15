@@ -20,6 +20,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/authenticate/page.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/authenticate/page.js", "components/ToggleButton.jsx", "components/Sidebar.jsx", "components/Navbar.jsx", "components/MarqueeComponent.jsx", "components/Hero.jsx", "components/Ending.jsx", "components/Features.jsx", "components/Parallax.jsx"],
   "exclude": ["node_modules"]
 }
