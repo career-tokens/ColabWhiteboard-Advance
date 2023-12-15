@@ -59,7 +59,7 @@ const Features = () => {
         style={{ padding: "0 5vw 5vh 5vw" }}
       >
         {cardData.map((card, index) => (
-          <Card index={index} {...card} />
+          <Card index={index} key={index} {...card} />
         ))}
       </div>
     </>
