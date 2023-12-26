@@ -9,9 +9,6 @@ import { drawLine } from '../../../utils/drawLine';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Button from '@mui/material/Button';
-import { Drawer } from 'rsuite';
-import 'rsuite/dist/rsuite.min.css';//very imp to use rsuite stuff
-
 
 const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL);
 
